@@ -23,10 +23,10 @@ class GameController{
 
     /**
      * récup un jeu en fonction de l'id
-     * @param $id string id du jeu à chercher en db 
+     * @param int $id string id du jeu à chercher en db 
      * @return Game | false le jeu trouvé ou false
      */
-    public function getGameById($id){
+    public function getGameById(int $id){
         //Création d'une requête pour sélectionner tous les champs de la table game là ou l'id du jeu = id URL
         $getGameRequest = 'SELECT * FROM game WHERE id = :game_id';
         
