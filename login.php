@@ -48,13 +48,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>INDEX</title>
+    <title>Login page</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
-    <h1>Connexion</h1>
-    <form method="POST" action="login.php">
-        <input type="text" name="login" placeholder="Entrez votre nom d'utilisateur">
-        <input type="password" name="password" placeholder="Entrez votre pwd">
-        <button type="submit">Valider</button>
-    </form>
+    <section>
+        <aside>
+            <img src="./assets/mario.png" alt="Mario">
+        </aside>
+        <article>
+            <div>
+                <h1>Connexion</h1>
+                <form method="POST" action="login.php">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Pseudo</label>
+                        <input type="text" name="login" class="form-control" id="exampleInputEmail1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" aria-describedby="pwdHelp">
+                        <div id="pwdHelp" class="form-text">Te gourre pas dans les majuscules hein...</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </article>
+    </section>
 </html>

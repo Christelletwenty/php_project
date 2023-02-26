@@ -7,9 +7,7 @@
     
 
     // On check si il y a un utilisateur connecté ($_SESSION)
-    if(isset($_SESSION['login'])){
-        echo "vous êtes connecté";
-    }else{
+    if(!isset($_SESSION['login'])){
         header("Location: login.php");
         die();
     }
@@ -29,45 +27,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>INDEX</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
-    Ravis de vous voir <!-- Afficher le nom de l'utilisateur connecté ici --> !
-    <div>
-        <nav>
-            <ul>
-                <a href="disconnect.php">Déconnexion</a>
-            </ul>
-        </nav>
-    </div>
-
-    <form action="" method="get" name="recherche">
-        <input type="text" name="keywords" placeholder="Jeux">
-        <input type="submit" name="Valider" value="rechercher">
-    </form>
+    <?php include 'menu.php'; ?>
 
     <section>
-
         <article>
-            <h2>Derniers avis publiés</h2>
-            <p>Retrouvez les derniers avis publiés par nos utilisateurs.</p>
-            <a href="#">Voir plus</a>
-        </article>
-
-        <article>
-            <h2>Vos avis</h2>
-            <p>Publier ou relire vos avis sur les jeux auxquels vous avez joué</p>
-            <a href="#">Voir plus</a>
-        </article>
-
-        <article>
-            <h2>Jeux</h2>
-            <ul>
-                <?php foreach($games as $game){ ?>
-                    <li>
-                        <a href="game.php?GAME_ID=<?php echo $game->getId(); ?>"><?php echo $game->getName(); ?></a>
-                    </li> 
-                <?php } ?>
-            </ul>
+            <div>
+                <h2>Jeux</h2>
+                <div class="list-group">
+                    <?php foreach($games as $game){ ?>
+                        <a class="list-group-item list-group-item-action" href="game.php?GAME_ID=<?php echo $game->getId(); ?>"><?php echo $game->getName(); ?></a>
+                    <?php } ?>
+                </div>
+            </div>
         </article>
     </section>
 </body>

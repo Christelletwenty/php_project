@@ -2,14 +2,14 @@
     // import class
     require_once 'models/Game.php';
     require_once 'models/Comment.php';
+    require_once 'models/User.php';
     require_once 'controllers/GameController.php';
     require_once 'controllers/CommentController.php';
+    require_once 'controllers/UserController.php';
     /// import du common
     include('common.php');
 
-    if(isset($_SESSION['login'])){
-        echo "vous êtes connecté";
-    }else{
+    if(!isset($_SESSION['login'])){
         header("Location: login.php");
         die();
     }
@@ -60,29 +60,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title><?php echo $game->getName(); ?></title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
-    <!-- Affichage du jeu dans les DI-->
-    <h1>Jeux</h1>
-    <h2><?php echo $game->getName(); ?></h2>
-    <p> <?php echo $game->getDescription(); ?></p>
+    <?php include 'menu.php'; ?>
 
-    <!--Affichage des commentaires-->
-    <h1>Commentaires</h1>
-    <?php foreach($comments as $comment){ ?>
+    <article>
         <div>
-            <p> <?php echo $comment->getText(); ?></p>
-            <p> <?php echo $comment->getNote(); ?>/5</p>
-        </div> 
-    <?php } ?>
+            <!-- Affichage du jeu dans les DI-->
+            <h1>Jeu</h1>
+            <h2><?php echo $game->getName(); ?></h2>
+            <p> <?php echo $game->getDescription(); ?></p>
 
-    <form method="POST" action="game.php?GAME_ID=<?php echo $game->getId(); ?>">
-        <label for="text" > Votre avis sur le jeu</label>
-        <textarea name="text" cols="50" rows="5"></textarea>
-        <input type="range" name="note" value="0" min="0" max="5">
-        <label for="volume">Note</label>
-        <button type="submit">Publier</button>
-    </form>
+            <!--Affichage des commentaires-->
+            <h1>Commentaires</h1>
+
+            <div class="list-group">
+                <?php foreach($comments as $comment){ ?>
+                    <span class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <?php 
+                                $userController = new UserController($db);
+                                $user = $userController->getUserById($comment->getUserId());
+
+                                if ($user != false) {
+                                    echo $user->getLogin();
+                                }
+                            ?>
+                        </h5>
+                        <small><?php echo $comment->getNote(); ?>/5</small>
+                        </div>
+                        <p class="mb-1"><?php echo $comment->getText(); ?></p>
+                    </span>
+                <?php } ?>
+
+                <span class="list-group-item list-group-item-action">
+                    <form  class="mb-1" method="POST" action="game.php?GAME_ID=<?php echo $game->getId(); ?>">
+                        <div class="mb-3">
+                            <label for="text" class="form-label">Ajouter un commentaire</label>
+                            <textarea class="form-control" name="text" id="text" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="note" class="form-label">Votre note</label>
+                            <input type="range" name="note" value="0" min="0" max="5" id="note">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Publier</button>
+                    </form>
+                </span>
+            </div>
+        </div>
+    </article>
 </body>
 </html>

@@ -34,6 +34,29 @@ class UserController{
         //reoturnera le User qu'on a demandé ou false si rien n'est retourné par la db. 
     }
 
+    /**
+     * Récupère un utilisateur dans la DB via son ID
+     * 
+     * @param string $id l'id a chercher en DB
+     * @return User | false le user troucé sinon false
+     */
+    public function getUserById(int $id){
+        //Création d'une requête pour sélectionner tous les champs de la table user là ou le login = à la chaine de caractère login qu'on lui passe. 
+        $getUserRequest = 'SELECT * FROM user WHERE id = :id';
+       
+        //Préparation de la requête
+        $getUserStatment = $this->db->prepare($getUserRequest);
+        $getUserStatment->setFetchMode(PDO::FETCH_CLASS, 'User');
+        
+        //Envoit une requête à la base de donnée en prenant en paramètre un tableau associatif de valeurs nécessaire à la requête (:login)
+        $getUserStatment->execute([
+            'id' => $id
+        ]); 
+
+        return $getUserStatment->fetch();
+        //reoturnera le User qu'on a demandé ou false si rien n'est retourné par la db. 
+    }
+
     public function getUsers(){
         return;
     }

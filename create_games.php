@@ -16,7 +16,8 @@
     
     } else { // Si notre formulaire est pas rempli on affiche un message d'erreur. Ca serait mieux de le gérer avec $_REQUEST et $_SERVER
         // On va mettre un message d'erreur
-        echo('Vous devez remplir tous les champs');
+        // echo('Vous devez remplir tous les champs');
+        // TODO : créer une erreur 
     }
 
 ?>
@@ -27,18 +28,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CREATE_GAMES</title>
+    <title>Créer un jeu</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
-    <h1>Créer un avis sur un jeu</h1>
+    <?php include 'menu.php'; ?>
 
-    <!-- Notre p'tit formulaire qui pointe ici même, pour créer un avis jeu -->
-    <form method="POST" action="create_games.php">
-        <input type="text" name="name" placeholder="Nom du jeu">
-        <!-- <label for="" > Votre avis sur le jeu</label> -->
-        <textarea name="description" cols="5" rows="5" placeholder="description"></textarea>
-        <button type="submit">Publier</button>
-    </form>
+    <article>
+        <div>
+            <h1>Créer un jeu</h1>
+            <form method="POST" action="create_games.php">
+                <div class="mb-3">
+                    <label for="gameName" class="form-label">Nom du jeu</label>
+                    <input name="name" type="text" class="form-control" id="gameName">
+                </div>
+                <div class="mb-3">
+                    <label for="textarea-game" class="form-label">Description du jeu</label>
+                    <textarea class="form-control" id="textarea-game" rows="3" name="description"></textarea>
+                    <div id="textarea-game-label" class="form-text">Soyez originaux, ici on aime les drôleries</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Publier</button>
+            </form>
+        </div>
+    </article>
 
     
 </body>

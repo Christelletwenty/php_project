@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 
 INSERT INTO `comment` (`id`, `gameId`, `userId`, `note`, `text`) VALUES
 (1, 1, 9, 5, 'Super expérience'),
-(2, 1, 9, 2, "Je suis content d'avoir testé ce jeu"),
+(2, 1, 10, 2, "Je suis content d'avoir testé ce jeu"),
 (3, 1, 9, 5, 'ce jeux était incroyable, longue durée de vie');
 COMMIT;
 

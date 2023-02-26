@@ -1,0 +1,89 @@
+html, body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.navbar.navbar-expand-lg.bg-body-tertiary {
+    background-color: #ff7675;
+    flex: 0 0 auto;
+}
+
+.navbar .space {
+    flex: 1 1 auto;
+}
+
+section {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background: #ff7675;
+}
+
+aside {
+    flex: 0 0 25%;
+    position: relative;
+    z-index: 10;
+    padding: 2rem;
+}
+
+aside img {
+    width: 300px;
+    position: absolute;
+    right: -150px;
+    bottom: 5rem;
+}
+
+article {
+    background: #FFF;
+    border-radius: 20px 0 0 20px;
+    flex: 1 1 auto;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 15%;
+    overflow: auto;
+}
+
+article div {
+    width: 100%;
+}
+
+article div button {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.title {
+    margin-top: 5rem;
+    color: #FFF;
+    width: 100%;
+}
+
+.title span {
+    font-size: 2rem;
+    line-height: normal;
+}
+
+.btn-primary {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: #FFF;
+    --bs-btn-bg: #ff7675;
+    --bs-btn-border-color: #ff7675;
+    --bs-btn-border-radius: .5rem;
+    --bs-btn-hover-color: #FFF;
+    --bs-btn-hover-bg: #d63031;
+    --bs-btn-hover-border-color: #d63031;
+    --bs-btn-focus-shadow-rgb: #d63031
+    --bs-btn-active-color: #d63031;
+    --bs-btn-active-bg: #d63031;
+    --bs-btn-active-border-color: #d63031;
+}
