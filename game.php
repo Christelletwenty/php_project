@@ -2,7 +2,8 @@
     // import class
     require_once 'models/Game.php';
     require_once 'models/Comment.php';
-    require_once 'controlleurs/GameController.php';
+    require_once 'controllers/GameController.php';
+    require_once 'controllers/CommentController.php';
     /// import du common
     include('common.php');
 
@@ -21,20 +22,15 @@
 
         ///////////////////// CREATION COMMENTAIRE
         //Check si l'utilisateur à créer un commentaire 
+        $commentController = new CommentController($db);
         if(isset($_POST['note']) || isset($_POST['text'])){
 
-            //Création de requête pour créer  des commentaires
-            $createComRequest = 'INSERT INTO comment (gameId, userId, note, text) VALUES (:gameId, :userId, :note, :text)';
-            
-            //Préparation de la requête
-            $createComStatement = $db->prepare($createComRequest);
-            //Envoit une requête à la base de donnée en prenant en paramètre un tableau associatif de valeurs nécessaire à la requête 
-            $createComStatement->execute([
-                "gameId" => $_GET["GAME_ID"],
-                "userId" => $_SESSION['connectedUserId'],
-                "note" => isset($_POST['note']) ? $_POST['note'] : '',
-                "text" => isset($_POST['text']) ? $_POST['text'] : '',
-            ]);
+            $comment = new Comment();
+            $comment->setGameId($_GET["GAME_ID"]);
+            $comment->setUserId($_SESSION['connectedUserId']);
+            $comment->setNote(isset($_POST['note']) ? $_POST['note'] : '');
+            $comment->setText(isset($_POST['text']) ? $_POST['text'] : '');
+            $commentController->createComment($comment);
         }
 
         //////////////////////////////////////////////
@@ -48,21 +44,8 @@
         header("Location:index.php");
         die();
        }
-
-       //création de la requête pour sélectionner tous les champs de ma table "comment"
-       $getComRequest = 'SELECT * FROM comment WHERE gameId = :game_id ORDER BY id DESC';
-
-       //prép de la requête 
-       $getComStatement = $db->prepare($getComRequest);
-       $getComStatement->setFetchMode(PDO::FETCH_CLASS, 'Comment');
-
-       ////Envoit une requête à la base de donnée en prenant en paramètre un tableau associatif de valeurs nécessaire à la requête 
-       $getComStatement->execute([
-            "game_id" => $game->getId()
-       ]);
-
-       ////On récupère et on met le résultat de notre requête dans une variable ($comment)
-       $comments = $getComStatement->fetchAll();
+       $comments = $commentController->getCommentsByGameId($game->getId());
+       
     }else{
         header("Location:index.php");
         die();

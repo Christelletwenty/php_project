@@ -45,10 +45,10 @@ class GameController{
 
     /**
      * Ajoute un jeu dans la db
-     * @param $game Game le jeu à ajouter
+     * @param Game $game le jeu à ajouter
      * 
      */
-    public function addGame($game){
+    public function addGame(Game $game){
         $newGameRequest = 'INSERT INTO game (name, description) VALUES (:name, :description)';
         
         $newGameStatement = $this->db->prepare($newGameRequest);

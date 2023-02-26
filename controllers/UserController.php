@@ -10,10 +10,10 @@ class UserController{
     /**
      * Récupère un utilisateur dans la DB via son login
      * 
-     * @param $login String le login a chercher en DB
+     * @param string $login le login a chercher en DB
      * @return User | false le user troucé sinon false
      */
-    public function getUserByLogin($login){
+    public function getUserByLogin(string $login){
         //Création d'une requête pour sélectionner tous les champs de la table user là ou le login = à la chaine de caractère login qu'on lui passe. 
         $getUserRequest = 'SELECT * FROM user WHERE login = :login ';
         //:login va être remplacé par une chaine de caractère qu'on va lui fournir lors de l'éxecution de la requête. 
@@ -41,9 +41,9 @@ class UserController{
     /**
      * Ajoute un nouvel utilisateur dans la DB
      * 
-     * @param $user User un objet de type user
+     * @param User $user un objet de type user
      */
-    public function addUser($user){
+    public function addUser(User $user){
         // On se connecte a la DB
         $request = 'INSERT INTO user (login, password) VALUES (:login, :password)';
         
