@@ -1,18 +1,19 @@
 <?php
+    // import class
+    require_once 'models/Game.php';
+     require_once 'controllers/GameController.php'; 
     // On inclut les choses communes a tous les fichiers
     include('common.php');
 
     // On regarde si on a un formulaire qui a été envoyé sur cette page. Si c'est le cas, on le traite.
     if (!empty($_POST["name"]) && !empty($_POST["description"])) {
-        // On créé la requête
-        $newGameRequest = 'INSERT INTO games (name, description) VALUES (:name, :description)';
-        
-        $newGameStatement = $db->prepare($newGameRequest);
-        $newGameStatement->execute([
-            "name" => $_POST["name"],
-            "description" => $_POST["description"]
-        ]);
+        $gameController = new GameController($db);
+        $game = new Game();
+        $game->setName($_POST["name"]);
+        $game->setDescripiton($_POST["description"]);
 
+        $gameController->addGame($game);
+    
     } else { // Si notre formulaire est pas rempli on affiche un message d'erreur. Ca serait mieux de le gérer avec $_REQUEST et $_SERVER
         // On va mettre un message d'erreur
         echo('Vous devez remplir tous les champs');
@@ -36,8 +37,6 @@
         <input type="text" name="name" placeholder="Nom du jeu">
         <!-- <label for="" > Votre avis sur le jeu</label> -->
         <textarea name="description" cols="5" rows="5" placeholder="description"></textarea>
-        <!-- <input type="range" name="note" min="0" max="5">
-        <label for="volume">Note</label> -->
         <button type="submit">Publier</button>
     </form>
 
