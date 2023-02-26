@@ -1,0 +1,29 @@
+version: "3.4"
+
+services:
+  server:
+    build: .
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 9076:80
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'P@ssw0rd!'
+      MYSQL_DATABASE: 'my_website'
+    volumes:
+      - ./mysqldata:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - 80:80
+    environment:
+      - PMA_HOST=db
+    depends_on:
+      - db
