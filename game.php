@@ -51,6 +51,8 @@
         die();
     }
 
+    setcookie('LastGame', $game->getId());
+
 
 ?>
 

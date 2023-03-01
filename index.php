@@ -41,6 +41,14 @@
                 <div class="list-group">
                     <?php foreach($games as $game){ ?>
                         <a class="list-group-item list-group-item-action" href="game.php?GAME_ID=<?php echo $game->getId(); ?>"><?php echo $game->getName(); ?></a>
+                        <?php
+                        if(isset($_COOKIE['LastGame']) == true){
+                            $lastGame = $_COOKIE['LastGame'];
+                            if($lastGame == $game->getId()){
+                                echo '<small>Vous venez de consulter ce jeu !</small>';
+                            }
+                        } 
+                        ?> 
                     <?php } ?>
                 </div>
             </div>
